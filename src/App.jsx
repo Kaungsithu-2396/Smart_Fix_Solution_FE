@@ -5,7 +5,7 @@ import "./index.css";
 
 function App() {
     return (
-        <div className=" font-nunito h-screen">
+        <div className=" font-Prompt h-screen">
             <Home />
         </div>
     );

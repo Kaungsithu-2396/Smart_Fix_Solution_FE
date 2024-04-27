@@ -78,3 +78,12 @@
 .first-bg {
     background-image: url("./photos//wallpaper-1.avif");
 }
+.second-bg {
+    background-image: url("./photos//wallpaper-2.avif");
+}
+.active {
+    background-color: black;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 10px;
+}

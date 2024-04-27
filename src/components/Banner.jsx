@@ -15,6 +15,7 @@ import {
     MenubarShortcut,
     MenubarTrigger,
 } from "./ui/menubar";
+import { Link } from "react-router-dom";
 export default function Banner() {
     const searchInput = useRef(null);
     useEffect(() => {
@@ -23,7 +24,7 @@ export default function Banner() {
     return (
         <>
             <div className=" lg:py-5 md:py-4 flex   md:justify-center lg:justify-around items-center h-100vh cursor-pointer">
-                <div className="relative justify-center items-center hidden  lg:flex">
+                <div className="relative justify-center items-center hidden lg:flex">
                     <span className="text-xl absolute left-2 lg:hidden xl:block">
                         <CiSearch />
                     </span>
@@ -37,16 +38,18 @@ export default function Banner() {
                     />
                 </div>
 
-                <div className="flex md:block justify-between mx-5 md:mx-0 w-full md:w-auto items-center">
-                    <p className=" md:text-4xl text-2xl pt-3 px-2  tracking-wide text-orange-400 font-bold ">
-                        Smart <span className=" ">Fix</span> <br />
-                        <span className="text-black/80 underline md:text-3xl md:text-center md:flex md:justify-center md:items-center ">
-                            Solution
-                        </span>
-                    </p>
-                    <span className="md:hidden text-3xl ">
+                <div className=" flex md:block justify-between mx-5 md:mx-0 w-full md:w-auto items-center">
+                    <Link to={"/"}>
+                        <p className=" md:text-4xl text-2xl pt-3 px-2  tracking-wide text-orange-400 font-bold ">
+                            Smart <span className=" ">Fix</span> <br />
+                            <span className="text-black/80  md:text-3xl md:text-center md:flex md:justify-center md:items-center ">
+                                Solution
+                            </span>
+                        </p>
+                    </Link>
+                    <div className="md:hidden text-3xl ">
                         <RxHamburgerMenu />
-                    </span>
+                    </div>
                 </div>
 
                 <div className=" hidden lg:flex justify-center items-center gap-x-3">

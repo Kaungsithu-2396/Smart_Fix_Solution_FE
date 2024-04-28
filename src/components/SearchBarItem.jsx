@@ -3,7 +3,7 @@ import photo from "../photos/wallpaper-1.avif";
 export default function SearchBarItem() {
     return (
         <>
-            <div className=" border-black  flex justify-center items-center bg-slate-300 px-5 py-2  gap-5">
+            <div className=" border-black  flex justify-center items-center bg-white px-5 py-2  gap-5">
                 <img
                     src={photo}
                     className="w-[30%] rounded-md"
@@ -15,6 +15,7 @@ export default function SearchBarItem() {
                     <h1 className="text-sm">49000 mmk</h1>
                 </div>
             </div>
+            <hr />
         </>
     );
 }

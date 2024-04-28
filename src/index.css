@@ -81,6 +81,7 @@
 .second-bg {
     background-image: url("./photos//wallpaper-2.avif");
 }
+
 .active {
     background-color: black;
     color: white;

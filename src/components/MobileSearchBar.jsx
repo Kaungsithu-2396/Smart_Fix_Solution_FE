@@ -9,7 +9,7 @@ export default function MobileSearchBar({ searchBar, setSearchBar }) {
         <>
             {searchBar && (
                 <>
-                    <div className=" md:hidden absolute transistion-all duration-300 delay-300 top-0 bg-white w-full h-[30%]">
+                    <div className=" lg:hidden absolute transistion-all duration-300 delay-300 top-0 bg-white w-full h-[30%]">
                         <div className="flex justify-center items-center  py-5 ">
                             <CiSearch className="font-bold" />
                             <input
@@ -28,8 +28,13 @@ export default function MobileSearchBar({ searchBar, setSearchBar }) {
                             </div>
                         </div>
                     </div>
-                    <div className=" md:hidden rounded-md absolute z-50 left-[15%] w-[80%] top-[12%]">
-                        {showSearchItem && <SearchBarItem />}
+                    <div className=" lg:hidden rounded-md absolute z-50 left-[15%] bg-white h-fit md:w-[70%] w-[80%] top-[12%] md:top-[8%] ">
+                        {showSearchItem && (
+                            <>
+                                <SearchBarItem />
+                                <SearchBarItem />
+                            </>
+                        )}
                     </div>
                 </>
             )}

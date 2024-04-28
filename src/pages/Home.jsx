@@ -2,12 +2,16 @@ import "@splidejs/react-splide/css";
 import Nav from "../components/Nav";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import CategoryCard from "@/components/CategoryCard";
-import ProductCart from "@/components/ProductCart";
+import ProductCart from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import PaymentBanner from "@/components/PaymentBanner";
+import BreadCrumbRoute from "@/components/BreadCrumbRoute";
+import { useLocation } from "react-router-dom";
 export default function Home() {
+    const location = useLocation();
     return (
         <section className="">
+            <BreadCrumbRoute data={["Home"]} />
             <Splide
                 aria-label="My Favorite Images"
                 className=""
@@ -136,7 +140,6 @@ export default function Home() {
             <div className=" h-fit  ">
                 <PaymentBanner />
             </div>
-            <hr />
         </section>
     );
 }

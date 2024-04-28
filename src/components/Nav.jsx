@@ -4,6 +4,7 @@ import { RiAccountPinCircleFill } from "react-icons/ri";
 import { BsCart } from "react-icons/bs";
 import { NavLink, Outlet } from "react-router-dom";
 import Footer from "./Footer";
+
 export default function Nav() {
     return (
         <div className=" ">
@@ -50,6 +51,8 @@ export default function Nav() {
                     </div>
                 </nav>
             </div>
+            <hr />
+
             <Outlet />
             <Footer />
         </div>

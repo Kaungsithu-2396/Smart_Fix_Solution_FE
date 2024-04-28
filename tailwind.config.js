@@ -74,6 +74,10 @@ module.exports = {
             fontFamily: {
                 Prompt: ["Prompt", "sans-serif"],
             },
+            screens: {
+                xs: { max: "375px" },
+                // => @media (max-width: 1535px) { ... }
+            },
         },
     },
     plugins: [require("tailwindcss-animate")],

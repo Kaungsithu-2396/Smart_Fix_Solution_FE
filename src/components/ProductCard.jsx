@@ -7,7 +7,7 @@ export default function ProductCart() {
                 <img
                     src="https://mdriveasia.com/cdn/shop/files/ROSA_iPhone_15_Pro_Natural_Titanium_PDP_Image_Position-1A_Natural_Titanium_Color_370x.jpg?v=1694843285"
                     alt=""
-                    className=" w-[200px] hover:scale-105 duration-200 delay-300  transistion-all"
+                    className=" w-[250px] hover:scale-105 duration-200 delay-300  transistion-all"
                 />
                 <div className="text-center">
                     <p className="">IPhone 14 pro max</p>

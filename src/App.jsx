@@ -14,6 +14,9 @@ import About from "./pages/About";
 import Shop from "./pages/Shop";
 import Service from "./pages/Service";
 import Tracking from "./pages/Tracking";
+import Success from "./pages/Success";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(
@@ -23,6 +26,9 @@ function App() {
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/service" element={<Service />} />
                 <Route path="/tracking" element={<Tracking />} />
+                <Route path="/success-service-item" element={<Success />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
             </Route>
         )
     );

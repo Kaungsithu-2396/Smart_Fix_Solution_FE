@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, Outlet, Link } from "react-router-dom";
 
-export default function AuthorityDashboard() {
+export default function TechnicianBoard() {
     return (
         <>
             <section className="flex flex-col 2xl:flex-row  ">
@@ -15,15 +15,12 @@ export default function AuthorityDashboard() {
                         </h1>
                     </Link>
                     <hr />
-                    <div className="grid grid-cols-3 font-semibold justify-center text-center items-center gap-6 m-5">
-                        <Link to={"/dashboard"}>
+                    <div className="grid grid-cols-2 font-semibold justify-center text-center items-center gap-6 m-5">
+                        <Link to={"/technicians"}>
                             {" "}
-                            <span>Home</span>
+                            <span>Products</span>
                         </Link>
                         <Link to={"/dashboard/addproducts"}>
-                            <span>Product</span>
-                        </Link>
-                        <Link to={"/dashboard/assignTechnician"}>
                             <span>Technicians</span>
                         </Link>
                     </div>
@@ -40,21 +37,15 @@ export default function AuthorityDashboard() {
                         className="absolute left-20 text-center top-[20%] flex flex-col justify-center items-center  gap-y-8   text-3x2"
                         id="admin"
                     >
-                        <Link to={"/dashboard"}>
+                        <Link to={"/technicians"}>
                             <li className="px-3 py-2  border-black  h-full w-full hover:scale-105 duration-200 delay-200 hover:font-bold">
-                                Home
+                                Products
                             </li>
                         </Link>
 
                         <Link to={"/dashboard/addproducts"}>
                             <li className="px-3 py-2 hover:scale-105 duration-200 delay-200 hover:font-bold">
-                                Product
-                            </li>
-                        </Link>
-
-                        <Link to={"/dashboard/assignTechnician"}>
-                            <li className="px-3 py-2 hover:scale-105 duration-200 delay-200 hover:font-bold">
-                                Technicians
+                                Account Detail
                             </li>
                         </Link>
                     </ul>

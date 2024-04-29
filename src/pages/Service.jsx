@@ -26,6 +26,7 @@ function Service() {
         reset,
         formState: { errors },
     } = useForm({ resolver: yupResolver(schema) });
+    const [trackImage, setTrackImage] = useState("");
 
     const onSubmit = (data) => {
         navigate("/success-service-item");
@@ -41,6 +42,8 @@ function Service() {
                     action=""
                     className="grid grid-cols-1 justify-center items-start gap-5 lg:w-[50%] 2xl:w-[30%] py-5 m-auto"
                     onSubmit={handleSubmit(onSubmit)}
+                    method="post"
+                    encType="multipart/form-data"
                 >
                     <legend className="text-center font-bold text-3xl my-5">
                         Service Upload Form
@@ -69,9 +72,9 @@ function Service() {
                     )}
                     <input
                         type="file"
-                        {...register("image", { required: true })}
                         accept=".jpeg"
                         className="px-3 rounded-md py-2  border border-black"
+                        onChange={(e) => setTrackImage(e.target.files[0])}
                     />
                     {errors.image?.type === "required" && (
                         <p role="alert" className=" text-red-500">

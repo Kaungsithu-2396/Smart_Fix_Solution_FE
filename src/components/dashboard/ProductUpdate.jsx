@@ -10,7 +10,7 @@ import {
     SelectValue,
 } from "../ui/select";
 import { Button } from "../ui/button";
-export default function ProductUpload() {
+export default function ProductUpdate() {
     const categoryCol = [
         { id: 1, name: "phone" },
         { id: 2, name: "tablet" },
@@ -22,7 +22,7 @@ export default function ProductUpload() {
     const [category, setCategory] = useState("");
     return (
         <section className="flex flex-col justify-center items-center w-full mt-5">
-            <h1 className="text-3xl">Upload product</h1>
+            <h1 className="text-3xl">Product Customization</h1>
             <form
                 action=""
                 encType={"multipart/form-data"}
@@ -114,6 +114,20 @@ export default function ProductUpload() {
                 <Button type="submit" className="my-5">
                     Submit
                 </Button>
+                <span className="flex gap-4 justify-between">
+                    <Button
+                        type="submit"
+                        className=" bg-red-500 my-2 w-[50%] m-auto"
+                    >
+                        Delete
+                    </Button>
+                    <Button
+                        type="submit"
+                        className=" bg-cyan-400  my-2 w-[50%] m-auto"
+                    >
+                        Update
+                    </Button>
+                </span>
             </form>
         </section>
     );

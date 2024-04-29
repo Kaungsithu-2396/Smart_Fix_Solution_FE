@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import {
     Select,
@@ -10,24 +10,25 @@ import {
     SelectValue,
 } from "../ui/select";
 import { Button } from "../ui/button";
-export default function ProductUpload() {
-    const categoryCol = [
-        { id: 1, name: "phone" },
-        { id: 2, name: "tablet" },
-        { id: 3, name: "airpod" },
-    ];
-    const { register, handleSubmit } = useForm();
-    const onSubmit = (data) => console.log(data, trackImage);
-    const [trackImage, setTrackImage] = useState("");
-    const [category, setCategory] = useState("");
+import { useParams } from "react-router-dom";
+export default function CustomizeServiceItem() {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+    const onSubmit = (data) => console.log(data);
+    const { itemId } = useParams();
+
     return (
-        <section className="flex flex-col justify-center items-center w-full mt-5">
-            <h1 className="text-3xl">Upload product</h1>
+        <section className="m-5 flex  flex-col justify-center items-center">
+            <h1 className="text-4xl p-4 text-orange-500">
+                Task Assigned Section
+            </h1>
             <form
                 action=""
-                encType={"multipart/form-data"}
                 onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col lg:w-[60%] w-full  mt-3 px-8 py-10 rounded-md border-black/30 "
+                className="flex flex-col  mt-8 px-8 py-10 rounded-md border-black/30 "
             >
                 <span className="flex flex-col">
                     <label htmlFor=" text-bold ">Name</label>
@@ -35,28 +36,18 @@ export default function ProductUpload() {
                         type="text"
                         name=""
                         id=""
-                        className="bg-neutral-300/20 px-3  py-2 border-2 border-black/30 rounded-md my-2"
+                        className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"
                         {...register("name", { required: true })}
                     />
                 </span>
                 <span className="flex flex-col">
-                    <label htmlFor="">Color</label>
+                    <label htmlFor="">Email</label>
                     <input
                         type="text"
                         className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"
                         name=""
                         id=""
-                        {...register("color", { required: true })}
-                    />
-                </span>
-                <span className="flex flex-col">
-                    <label htmlFor="">Price</label>
-                    <input
-                        type="text"
-                        name=""
-                        id=""
-                        className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"
-                        {...register("price", { required: true })}
+                        {...register("email", { required: true })}
                     />
                 </span>
                 <span className="flex flex-col">
@@ -69,43 +60,33 @@ export default function ProductUpload() {
                         {...register("description", { required: true })}
                     />
                 </span>
-                <span className="flex flex-col">
-                    <label htmlFor="">Stock Item</label>
-                    <input
-                        type="text"
-                        name=""
-                        id=""
-                        className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"
-                        {...register("stockItem", { required: true })}
-                    />
-                </span>
-                <span className="flex flex-col my-5">
+                <span>
                     <label htmlFor="">Image</label>
-                    <input
-                        type="file"
-                        accept=".jpeg"
-                        name=""
-                        id=""
-                        onChange={(e) => setTrackImage(e.target.files[0])}
+
+                    <img
+                        src="https://mdriveasia.com/cdn/shop/products/iPhone_14_Pro_Max_Deep_Purple_PDP_Image_Position-2_Design_SEA_600x.jpg?v=1662967340"
+                        alt=""
+                        srcset=""
+                        className=" w-[40%]"
                     />
                 </span>
                 <span>
                     <Select
                         className="bg-neutral-300/20"
-                        onValueChange={(value) => setCategory(value)}
+                        onValueChange={(value) => setTechnician(value)}
                     >
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Category Collection" />
+                            <SelectValue placeholder="Available Technician" />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectGroup>
-                                {categoryCol.map((el) => {
+                                {/* {availableTechnician.map((el) => {
                                     return (
                                         <SelectItem value={el.name} key={el.id}>
                                             {el.name}
                                         </SelectItem>
                                     );
-                                })}
+                                })} */}
                             </SelectGroup>
                         </SelectContent>
                     </Select>

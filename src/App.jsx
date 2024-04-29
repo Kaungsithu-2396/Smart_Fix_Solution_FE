@@ -20,6 +20,14 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import AuthorityDashboard from "./components/dashboard/AuthorityDashboard";
 import DashBoardHome from "./components/dashboard/DashBoardHome";
+import ProductUpload from "./components/dashboard/ProductUpload";
+import Technicians from "./components/dashboard/Technicians";
+import AssignTask from "./components/dashboard/AssignTask";
+import UserData from "./components/dashboard/UserData";
+import ProductUpdate from "./components/dashboard/ProductUpdate";
+import TechnicianBoard from "./components/dashboard/TechnicianBoard";
+import TechnicianHome from "./components/dashboard/TechnicianHome";
+import CustomizeServiceItem from "./components/dashboard/CustomizeServiceItem";
 function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(
@@ -34,8 +42,23 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                 </Route>
-                <Route path="/admin" element={<AuthorityDashboard />}>
+                <Route path="/dashboard" element={<AuthorityDashboard />}>
                     <Route index element={<DashBoardHome />} />
+                    <Route path="assigntask/:itemID" element={<AssignTask />} />
+                    <Route path="addproducts" element={<ProductUpload />} />
+                    <Route path="assignTechnician" element={<Technicians />} />
+                    <Route path="user/:userID" element={<UserData />} />
+                    <Route
+                        path="product/:productID"
+                        element={<ProductUpdate />}
+                    />
+                </Route>
+                <Route path="/technicians" element={<TechnicianBoard />}>
+                    <Route index element={<TechnicianHome />} />
+                    <Route
+                        path="items/:itemId"
+                        element={<CustomizeServiceItem />}
+                    />
                 </Route>
             </>
         )

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     Table,
     TableBody,
@@ -15,81 +15,51 @@ import { GrUpdate } from "react-icons/gr";
 import { GrView } from "react-icons/gr";
 
 import { Link } from "react-router-dom";
-const invoices = [
-    {
-        id: 1,
-        name: "Kaung Si Thu",
-        email: "Kgkg@gmail.com",
-        description: "Broken screen",
-        status: "pending",
-        assigned: "",
-    },
-    {
-        id: 2,
-        name: "Kaung Si Thu",
-        email: "Kgkg@gmail.com",
-        description: "Broken screen",
-        status: "pending",
-        assigned: "",
-    },
-    {
-        id: 3,
-        name: "Kaung Si Thu",
-        email: "Kgkg@gmail.com",
-        description: "Broken screen",
-        status: "pending",
-        assigned: "",
-    },
-    {
-        id: 4,
-        name: "Kaung Si Thu",
-        email: "Kgkg@gmail.com",
-        description: "Broken screen",
-        status: "pending",
-        assigned: "",
-    },
-    {
-        id: 5,
-        name: "Kaung Si Thu",
-        email: "Kgkg@gmail.com",
-        description: "Broken screen",
-        status: "pending",
-        assigned: "",
-    },
-    {
-        id: 6,
-        name: "Kaung Si Thu",
-        email: "Kgkg@gmail.com",
-        description: "Broken screen",
-        status: "pending",
-        assigned: "",
-    },
-];
+import axios from "axios";
+
 export default function DashBoardHome() {
+    const token = localStorage.getItem("token");
+    console.log(token);
+    const [users, setUsers] = useState([]);
+    const [serviceItems, setServiceItems] = useState([]);
+    const [products, setProducts] = useState([]);
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000/api/v1/users", {
+                headers: {
+                    Authorization: `Bearer ${token} `,
+                },
+            })
+            .then((resp) => {
+                setUsers(resp.data.user);
+                console.log(users);
+            })
+            .catch((err) => console.log(err));
+
+        axios
+            .get("http://localhost:3000/api/v1/serviceItems", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((resp) => {
+                setServiceItems(resp.data.data);
+                console.log(serviceItems);
+            })
+            .catch((err) => console.log(err));
+        axios
+            .get("http://localhost:3000/api/v1/products", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((resp) => setProducts(resp.data.products))
+            .catch((err) => console.log(err));
+    }, []);
     return (
         <section className=" mx-10   mt-20">
             <h1 className="text-3xl font-bold">Welcome Mg Kaung </h1>
 
-            <div className="my-9 flex justify-center items-center lg:flex-row flex-col gap-10">
-                <div className="border-2 lg:w-[17vw] w-full text-center rounded-md  p-10 border-black/20">
-                    <h1 className="text-3xl ">Category</h1>
-                    <p className="text-2xl pt-4 text-center font-bold text-orange-500">
-                        5
-                    </p>
-                </div>
-                <div className="border-2 lg:w-[17vw] w-full text-center rounded-md  p-10 border-black/20">
-                    <h1 className="text-3xl">User</h1>
-                    <p className="text-2xl pt-4 text-center">5</p>
-                </div>
-                <div className="border-2 lg:w-[17vw] w-full text-center rounded-md  p-10 border-black/20">
-                    <h1 className="text-3xl">Technicians</h1>
-                    <p className="text-2xl pt-4 text-center">5</p>
-                </div>
-                <div className="border-2  lg:w-[17vw] w-full text-center rounded-md  p-10 border-black/20">
-                    <h1 className="text-3xl">Products</h1>
-                    <p className="text-2xl pt-4 text-center">5</p>
-                </div>
-            </div>
             <div className=" my-6">
                 <h1 className="text-3xl mb-8 text-orange-500">User Lists</h1>
                 <Table>
@@ -103,27 +73,15 @@ export default function DashBoardHome() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {invoices.map((invoice, idx) => (
-                            <TableRow key={invoice.id}>
+                        {users?.map((user, idx) => (
+                            <TableRow key={user._id}>
                                 <TableCell className="font-medium">
-                                    {invoice.name}
+                                    {user.name}
                                 </TableCell>
-                                <TableCell>{invoice.email}</TableCell>
+                                <TableCell>{user.email}</TableCell>
 
-                                {/* <TableCell className="flex gap-5">
-                                    <Link
-                                        to={`/dashboard/assignTask/${invoice.id}`}
-                                    >
-                                        <FaRegTrashAlt />
-                                    </Link>
-                                    <Link
-                                        to={`/dashboard/assignTask/${invoice.id}`}
-                                    >
-                                        <GrUpdate />
-                                    </Link>
-                                </TableCell> */}
                                 <TableCell className="font-medium">
-                                    <Link to={`/dashboard/user/${invoice.id}`}>
+                                    <Link to={`/dashboard/user/${user._id}`}>
                                         <GrView />
                                     </Link>
                                 </TableCell>
@@ -149,22 +107,21 @@ export default function DashBoardHome() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {invoices.map((invoice, idx) => (
-                            <TableRow key={invoice.id}>
+                        {serviceItems.map((serviceItem, idx) => (
+                            <TableRow key={serviceItem.id}>
                                 <TableCell className="font-medium">
-                                    {invoice.name}
+                                    {serviceItem.name}
                                 </TableCell>
-                                <TableCell>{invoice.email}</TableCell>
-                                <TableCell>{invoice.description}</TableCell>
-                                <TableCell>{invoice.status}</TableCell>
+                                <TableCell>{serviceItem.email}</TableCell>
+                                <TableCell>{serviceItem.description}</TableCell>
+                                <TableCell>{serviceItem.status}</TableCell>
                                 <TableCell>
-                                    {invoice.assigned === ""
-                                        ? "Not Assigned"
-                                        : " assigned"}
+                                    {serviceItem.status === "pending" &&
+                                        "unassigned"}
                                 </TableCell>
                                 <TableCell>
                                     <Link
-                                        to={`/dashboard/assignTask/${invoice.id}`}
+                                        to={`/dashboard/assignTask/${serviceItem._id}`}
                                     >
                                         <GrView />
                                     </Link>
@@ -185,26 +142,26 @@ export default function DashBoardHome() {
                             <TableHead>Price</TableHead>
                             <TableHead className="">Category</TableHead>
                             <TableHead className="">Description</TableHead>
-                            <TableHead className="">Stock Items</TableHead>
 
                             <TableHead className="">View</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {invoices.map((invoice, idx) => (
-                            <TableRow key={invoice.id}>
+                        {products.map((product, idx) => (
+                            <TableRow key={product.id}>
                                 <TableCell className="font-medium">
-                                    {invoice.name}
+                                    {product.name}
                                 </TableCell>
-                                <TableCell>{invoice.email}</TableCell>
-                                <TableCell>{invoice.description}</TableCell>
-                                <TableCell>{invoice.status}</TableCell>
-                                <TableCell>minglar par</TableCell>
-                                <TableCell>minglar par</TableCell>
+                                <TableCell>{product.color}</TableCell>
+                                <TableCell>{product.price}</TableCell>
+                                <TableCell>{product.category}</TableCell>
+                                <TableCell>
+                                    {product.description.slice(0, 30)}
+                                </TableCell>
 
                                 <TableCell>
                                     <Link
-                                        to={`/dashboard/product/${invoice.id}`}
+                                        to={`/dashboard/product/${product._id}`}
                                     >
                                         <GrView />
                                     </Link>

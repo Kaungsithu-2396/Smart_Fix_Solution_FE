@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../components/ui/button";
 import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 export default function Register() {
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
     const {
         register,
         handleSubmit,
@@ -9,7 +13,31 @@ export default function Register() {
         watch,
         reset,
     } = useForm();
+    // useEffect(() => {
+    //     axios.post("http://localhost:3000/api/v1/users", {});
+    // }, []);
     const onSubmit = (data) => {
+        const { name, email, password } = data;
+        axios
+            .post("http://localhost:3000/api/v1/users", {
+                name,
+                email,
+                password,
+            })
+            .then((response) => {
+                console.log(response.data);
+                setError("");
+                localStorage.setItem("token", response.data.token);
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify(response.data.user)
+                );
+
+                navigate("/");
+            })
+            .catch((error) => {
+                setError(error.response.data.status);
+            });
         reset();
     };
     const pwd = watch("password");
@@ -20,6 +48,7 @@ export default function Register() {
                 create an account
             </h1>
             <div className="2xl:w-[60%] w-full m-auto">
+                <h1 className="text-center text-red-500 text-3xl">{error}</h1>
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     action=""

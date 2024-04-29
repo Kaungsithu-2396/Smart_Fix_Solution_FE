@@ -3,10 +3,12 @@ import { CiSearch } from "react-icons/ci";
 import { RxCross1 } from "react-icons/rx";
 import { BsCart } from "react-icons/bs";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Navigate, useNavigate } from "react-router-dom";
 import MenuBar from "./MenuBar";
 import MobileSearchBar from "./MobileSearchBar";
 import CartItem from "./CartItem";
+import { Button } from "./ui/button";
+import axios from "axios";
 export default function Banner() {
     const searchInput = useRef(null);
     useEffect(() => {
@@ -15,6 +17,32 @@ export default function Banner() {
     const [searchBar, setSearchBar] = useState(false);
     const [showNav, setShowNav] = useState(false);
     const [showCart, setShowCart] = useState(false);
+    const [cartItem, setCartItem] = useState([]);
+    let token = localStorage.getItem("token");
+    const navigate = useNavigate();
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000/api/v1/cart", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((response) => setCartItem(response.data.data))
+            .catch((error) => console.log(error));
+    }, []);
+    const orderHandler = () => {
+        axios
+            .delete("http://localhost:3000/api/v1/cart", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((resp) => console.log(resp.data))
+            .catch((err) => console.log(err));
+        setShowCart(false);
+        alert("Checkout success");
+        window.location.reload();
+    };
     return (
         <>
             <MobileSearchBar
@@ -23,9 +51,6 @@ export default function Banner() {
             />
             <div className=" lg:hidden flex justify-around pt-3 mb-2 text-xl items-center">
                 <div className=" w-[50%] m-auto relative flex justify-center items-center border-r-2 border-black">
-                    <div className=" w-5 h-5 absolute top-[-10px] right-[36%] text-sm   bg-red-500 text-white rounded-full flex justify-center items-center">
-                        5
-                    </div>
                     <BsCart onClick={() => setShowCart(!showCart)} />
                 </div>
 
@@ -81,11 +106,10 @@ export default function Banner() {
                     </span>
                     <span
                         className="text-2xl hover:scale-110 delay-150 duration-150 cursor-pointer relative "
-                        onClick={() => setShowCart(!showCart)}
+                        onClick={() => {
+                            setShowCart(!showCart);
+                        }}
                     >
-                        <div className=" w-5 h-5 absolute top-[-10px] right-[-10px] text-base   bg-red-500 text-white rounded-full flex justify-center items-center">
-                            5
-                        </div>
                         <BsCart />
                     </span>
                 </div>
@@ -131,62 +155,27 @@ export default function Banner() {
                             </span>{" "}
                         </h1>
                         <div className=" ">
-                            <CartItem
-                                img={
-                                    "https://mdriveasia.com/cdn/shop/files/ROSA_iPhone_15_Pro_Natural_Titanium_PDP_Image_Position-1A_Natural_Titanium_Color_medium.jpg?v=1694843285"
-                                }
-                                model={"IPhone 14 Pro max"}
-                                count={5}
-                                price={4200}
-                            />
-                            <CartItem
-                                img={
-                                    "https://mdriveasia.com/cdn/shop/files/ROSA_iPhone_15_Pro_Natural_Titanium_PDP_Image_Position-1A_Natural_Titanium_Color_medium.jpg?v=1694843285"
-                                }
-                                model={"IPhone 14 Pro max"}
-                                count={5}
-                                price={4200}
-                            />
-                            <CartItem
-                                img={
-                                    "https://mdriveasia.com/cdn/shop/files/ROSA_iPhone_15_Pro_Natural_Titanium_PDP_Image_Position-1A_Natural_Titanium_Color_medium.jpg?v=1694843285"
-                                }
-                                model={"IPhone 14 Pro max"}
-                                count={5}
-                                price={4200}
-                            />
-                            <CartItem
-                                img={
-                                    "https://mdriveasia.com/cdn/shop/files/ROSA_iPhone_15_Pro_Natural_Titanium_PDP_Image_Position-1A_Natural_Titanium_Color_medium.jpg?v=1694843285"
-                                }
-                                model={"IPhone 14 Pro max"}
-                                count={5}
-                                price={4200}
-                            />
-                            <CartItem
-                                img={
-                                    "https://mdriveasia.com/cdn/shop/files/ROSA_iPhone_15_Pro_Natural_Titanium_PDP_Image_Position-1A_Natural_Titanium_Color_medium.jpg?v=1694843285"
-                                }
-                                model={"IPhone 14 Pro max"}
-                                count={5}
-                                price={4200}
-                            />
-                            <CartItem
-                                img={
-                                    "https://mdriveasia.com/cdn/shop/files/ROSA_iPhone_15_Pro_Natural_Titanium_PDP_Image_Position-1A_Natural_Titanium_Color_medium.jpg?v=1694843285"
-                                }
-                                model={"IPhone 14 Pro max"}
-                                count={5}
-                                price={4200}
-                            />
-                            <CartItem
-                                img={
-                                    "https://mdriveasia.com/cdn/shop/files/ROSA_iPhone_15_Pro_Natural_Titanium_PDP_Image_Position-1A_Natural_Titanium_Color_medium.jpg?v=1694843285"
-                                }
-                                model={"IPhone 14 Pro max"}
-                                count={5}
-                                price={4200}
-                            />
+                            {cartItem.map((el) => {
+                                return (
+                                    <CartItem
+                                        count={el.products[0].count}
+                                        id={el.products[0].productId}
+                                    />
+                                );
+                            })}
+                            {cartItem.length === 0 && (
+                                <h1 className="text-center font-bold">
+                                    No Item selected
+                                </h1>
+                            )}
+                            {cartItem.length > 0 && (
+                                <Button
+                                    className="w-full"
+                                    onClick={orderHandler}
+                                >
+                                    Order
+                                </Button>
+                            )}
                         </div>
                     </div>
                     {/* <div className="absolute w-full   top-0 bg-black/50 h-full z-40 "></div> */}

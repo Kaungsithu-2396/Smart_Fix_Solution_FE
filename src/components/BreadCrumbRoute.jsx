@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/breadcrumb";
 function BreadCrumbRoute({ data }) {
     //     console.log(data.pop());
-    console.log(data);
+
     return (
         <div className="m-4">
             <Breadcrumb>

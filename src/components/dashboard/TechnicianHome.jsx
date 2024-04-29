@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
     Table,
     TableBody,
@@ -9,59 +9,24 @@ import {
     TableHeader,
     TableRow,
 } from "../ui/table";
+import axios from "axios";
 import { GrView } from "react-icons/gr";
 import { Link } from "react-router-dom";
-const invoices = [
-    {
-        id: 1,
-        name: "Kaung Si Thu",
-        email: "Kgkg@gmail.com",
-        description: "Broken screen",
-        status: "pending",
-        assigned: "",
-    },
-    {
-        id: 2,
-        name: "Kaung Si Thu",
-        email: "Kgkg@gmail.com",
-        description: "Broken screen",
-        status: "pending",
-        assigned: "",
-    },
-    {
-        id: 3,
-        name: "Kaung Si Thu",
-        email: "Kgkg@gmail.com",
-        description: "Broken screen",
-        status: "pending",
-        assigned: "",
-    },
-    {
-        id: 4,
-        name: "Kaung Si Thu",
-        email: "Kgkg@gmail.com",
-        description: "Broken screen",
-        status: "pending",
-        assigned: "",
-    },
-    {
-        id: 5,
-        name: "Kaung Si Thu",
-        email: "Kgkg@gmail.com",
-        description: "Broken screen",
-        status: "pending",
-        assigned: "",
-    },
-    {
-        id: 6,
-        name: "Kaung Si Thu",
-        email: "Kgkg@gmail.com",
-        description: "Broken screen",
-        status: "pending",
-        assigned: "",
-    },
-];
+
 export default function TechnicianHome() {
+    const token = localStorage.getItem("token");
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000/api/v1/technicians/serviceItems", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((resp) => setData(resp.data.data))
+            .catch((err) => console.log(err));
+    }, []);
     return (
         <>
             <section className="flex flex-col  m-9  w-full">
@@ -83,24 +48,29 @@ export default function TechnicianHome() {
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {invoices.map((invoice, idx) => (
-                                <TableRow key={invoice.id}>
-                                    <TableCell className="font-medium">
-                                        {invoice.name}
-                                    </TableCell>
-                                    <TableCell>{invoice.email}</TableCell>
-                                    <TableCell>{invoice.description}</TableCell>
-                                    <TableCell>{invoice.status}</TableCell>
-
-                                    <TableCell>
+                            {data.length > 0 ? (
+                                data.map((el, idx) => (
+                                    <TableRow key={el.id}>
+                                        <TableCell className="font-medium">
+                                            {el.name}
+                                        </TableCell>
+                                        <TableCell>{el.email}</TableCell>
+                                        <TableCell>{el.description}</TableCell>
+                                        <TableCell>{el.status}</TableCell>
                                         <Link
-                                            to={`/technicians/items/${invoice.id}`}
+                                            to={`/technicians/reportTask/${el._id}`}
                                         >
-                                            <GrView />
+                                            <TableCell className="cursor-pointer">
+                                                <GrView />
+                                            </TableCell>
                                         </Link>
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <h1 className="text-center m-5 text-3xl text-red-500">
+                                    No task assigned
+                                </h1>
+                            )}
                         </TableBody>
                     </Table>
                 </div>

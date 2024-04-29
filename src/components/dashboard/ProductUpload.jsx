@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import axios from "axios";
 import {
     Select,
     SelectContent,
@@ -16,10 +17,45 @@ export default function ProductUpload() {
         { id: 2, name: "tablet" },
         { id: 3, name: "airpod" },
     ];
-    const { register, handleSubmit } = useForm();
-    const onSubmit = (data) => console.log(data, trackImage);
     const [trackImage, setTrackImage] = useState("");
+    const token = localStorage.getItem("token");
+    console.log(token);
     const [category, setCategory] = useState("");
+    const toBase64 = (file) =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+    const { register, handleSubmit } = useForm();
+    const onSubmit = async (data) => {
+        const imgUrl = await toBase64(trackImage);
+        axios
+            .post(
+                "http://localhost:3000/api/v1/products",
+                {
+                    name: data.name,
+                    color: data.color,
+                    price: data.price,
+                    category,
+                    description: data.description,
+                    file: imgUrl,
+                    stockItem: data.stockItem,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+            .then((resp) => {
+                console.log(resp.data);
+                alert("Success");
+            })
+            .catch((err) => console.log(err));
+    };
+
     return (
         <section className="flex flex-col justify-center items-center w-full mt-5">
             <h1 className="text-3xl">Upload product</h1>
@@ -27,7 +63,7 @@ export default function ProductUpload() {
                 action=""
                 encType={"multipart/form-data"}
                 onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col lg:w-[60%] w-full  mt-3 px-8 py-10 rounded-md border-black/30 "
+                className="flex flex-col lg:w-[60%] w-full  mt-3 px-8 py-10 rounded-md border-black/10 "
             >
                 <span className="flex flex-col">
                     <label htmlFor=" text-bold ">Name</label>
@@ -35,7 +71,7 @@ export default function ProductUpload() {
                         type="text"
                         name=""
                         id=""
-                        className="bg-neutral-300/20 px-3  py-2 border-2 border-black/30 rounded-md my-2"
+                        className="bg-neutral-300/20 px-8  py-2 border-1 border-black/10 rounded-md my-2"
                         {...register("name", { required: true })}
                     />
                 </span>
@@ -43,7 +79,7 @@ export default function ProductUpload() {
                     <label htmlFor="">Color</label>
                     <input
                         type="text"
-                        className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"
+                        className="bg-neutral-300/20 px-8  py-2 border-1 border-black/10 rounded-md my-2"
                         name=""
                         id=""
                         {...register("color", { required: true })}
@@ -55,7 +91,7 @@ export default function ProductUpload() {
                         type="text"
                         name=""
                         id=""
-                        className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"
+                        className="bg-neutral-300/20 px-8  py-2 border-1 border-black/10 rounded-md my-2"
                         {...register("price", { required: true })}
                     />
                 </span>
@@ -65,7 +101,7 @@ export default function ProductUpload() {
                         type="text"
                         name=""
                         id=""
-                        className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"
+                        className="bg-neutral-300/20 px-8  py-2 border-1 border-black/10 rounded-md my-2"
                         {...register("description", { required: true })}
                     />
                 </span>
@@ -75,7 +111,7 @@ export default function ProductUpload() {
                         type="text"
                         name=""
                         id=""
-                        className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"
+                        className="bg-neutral-300/20 px-8  py-2 border-1 border-black/10 rounded-md my-2"
                         {...register("stockItem", { required: true })}
                     />
                 </span>
@@ -83,7 +119,6 @@ export default function ProductUpload() {
                     <label htmlFor="">Image</label>
                     <input
                         type="file"
-                        accept=".jpeg"
                         name=""
                         id=""
                         onChange={(e) => setTrackImage(e.target.files[0])}

@@ -28,6 +28,9 @@ import ProductUpdate from "./components/dashboard/ProductUpdate";
 import TechnicianBoard from "./components/dashboard/TechnicianBoard";
 import TechnicianHome from "./components/dashboard/TechnicianHome";
 import CustomizeServiceItem from "./components/dashboard/CustomizeServiceItem";
+import SpecificProduct from "./pages/SpecificProduct";
+import TechLogin from "./pages/TechLogin";
+import ReportTask from "./pages/ReportTask";
 function App() {
     const router = createBrowserRouter(
         createRoutesFromElements(
@@ -41,6 +44,7 @@ function App() {
                     <Route path="/success-service-item" element={<Success />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
+                    <Route path="/product/:id" element={<SpecificProduct />} />
                 </Route>
                 <Route path="/dashboard" element={<AuthorityDashboard />}>
                     <Route index element={<DashBoardHome />} />
@@ -59,6 +63,8 @@ function App() {
                         path="items/:itemId"
                         element={<CustomizeServiceItem />}
                     />
+                    <Route path="reportTask/:id" element={<ReportTask />} />
+                    <Route path="login" element={<TechLogin />} />
                 </Route>
             </>
         )

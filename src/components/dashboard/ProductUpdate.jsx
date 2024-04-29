@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
     Select,
@@ -10,16 +10,71 @@ import {
     SelectValue,
 } from "../ui/select";
 import { Button } from "../ui/button";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 export default function ProductUpdate() {
+    const { productID } = useParams();
+    const [product, setProduct] = useState("");
+    const token = localStorage.getItem("token");
+    useEffect(() => {
+        axios
+            .get(`http://localhost:3000/api/v1/products/${productID}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                setProduct(res.data.product);
+            })
+            .catch((err) => console.log(err));
+    }, []);
+    console.log(product);
+
     const categoryCol = [
         { id: 1, name: "phone" },
         { id: 2, name: "tablet" },
         { id: 3, name: "airpod" },
     ];
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, watch } = useForm();
     const onSubmit = (data) => console.log(data, trackImage);
     const [trackImage, setTrackImage] = useState("");
     const [category, setCategory] = useState("");
+    const toBase64 = (file) =>
+        new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+            reader.onerror = (error) => reject(error);
+        });
+    const name = watch("name");
+    const color = watch("color");
+    const price = watch("price");
+    const description = watch("description");
+    const stockItem = watch("stockItem");
+    const updateHandler = async () => {
+        const img = await toBase64(trackImage);
+
+        axios
+            .put(
+                `http://localhost:3000/api/v1/products/${productID}`,
+                {
+                    name,
+                    color,
+                    price,
+                    description,
+                    stockItem,
+                    category,
+                    img,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            )
+            .then((resp) => alert("success update"))
+            .catch((err) => console.log(err));
+    };
     return (
         <section className="flex flex-col justify-center items-center w-full mt-5">
             <h1 className="text-3xl">Product Customization</h1>
@@ -35,6 +90,7 @@ export default function ProductUpdate() {
                         type="text"
                         name=""
                         id=""
+                        defaultValue={product.name}
                         className="bg-neutral-300/20 px-3  py-2 border-2 border-black/30 rounded-md my-2"
                         {...register("name", { required: true })}
                     />
@@ -45,6 +101,7 @@ export default function ProductUpdate() {
                         type="text"
                         className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"
                         name=""
+                        defaultValue={product.color}
                         id=""
                         {...register("color", { required: true })}
                     />
@@ -55,6 +112,7 @@ export default function ProductUpdate() {
                         type="text"
                         name=""
                         id=""
+                        defaultValue={product.price}
                         className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"
                         {...register("price", { required: true })}
                     />
@@ -65,6 +123,7 @@ export default function ProductUpdate() {
                         type="text"
                         name=""
                         id=""
+                        defaultValue={product.description}
                         className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"
                         {...register("description", { required: true })}
                     />
@@ -75,6 +134,7 @@ export default function ProductUpdate() {
                         type="text"
                         name=""
                         id=""
+                        defaultValue={product.stockItem}
                         className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"
                         {...register("stockItem", { required: true })}
                     />
@@ -83,7 +143,6 @@ export default function ProductUpdate() {
                     <label htmlFor="">Image</label>
                     <input
                         type="file"
-                        accept=".jpeg"
                         name=""
                         id=""
                         onChange={(e) => setTrackImage(e.target.files[0])}
@@ -124,6 +183,7 @@ export default function ProductUpdate() {
                     <Button
                         type="submit"
                         className=" bg-cyan-400  my-2 w-[50%] m-auto"
+                        onClick={updateHandler}
                     >
                         Update
                     </Button>

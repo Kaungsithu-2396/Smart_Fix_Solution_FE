@@ -15,13 +15,10 @@ export default function TechnicianBoard() {
                         </h1>
                     </Link>
                     <hr />
-                    <div className="grid grid-cols-2 font-semibold justify-center text-center items-center gap-6 m-5">
+                    <div className="grid grid-cols-1 font-semibold justify-center text-center items-center gap-6 m-5">
                         <Link to={"/technicians"}>
                             {" "}
                             <span>Products</span>
-                        </Link>
-                        <Link to={"/dashboard/addproducts"}>
-                            <span>Technicians</span>
                         </Link>
                     </div>
                     <hr />
@@ -40,12 +37,6 @@ export default function TechnicianBoard() {
                         <Link to={"/technicians"}>
                             <li className="px-3 py-2  border-black  h-full w-full hover:scale-105 duration-200 delay-200 hover:font-bold">
                                 Products
-                            </li>
-                        </Link>
-
-                        <Link to={"/dashboard/addproducts"}>
-                            <li className="px-3 py-2 hover:scale-105 duration-200 delay-200 hover:font-bold">
-                                Account Detail
                             </li>
                         </Link>
                     </ul>

@@ -7,8 +7,22 @@ import { Button } from "@/components/ui/button";
 import PaymentBanner from "@/components/PaymentBanner";
 import BreadCrumbRoute from "@/components/BreadCrumbRoute";
 import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import { useNavigate } from "react-router-dom";
+import { Key } from "lucide-react";
 export default function Home() {
     const location = useLocation();
+    const navigate = useNavigate();
+    const [product, setProduct] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get("http://localhost:3000/api/v1/products")
+            .then((resp) => setProduct(resp.data));
+        return () => {};
+    }, []);
     return (
         <section className="">
             <BreadCrumbRoute data={["Home"]} />
@@ -125,10 +139,23 @@ export default function Home() {
                     Trending Products
                 </h1>
                 <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-5 ">
+                    {product?.products?.length > 0 &&
+                        product.products.slice(0, 3).map((el) => {
+                            return (
+                                <div className="" key={el.id}>
+                                    <ProductCart
+                                        to={el._id}
+                                        src={el.image}
+                                        price={el.price}
+                                        model={el.name}
+                                    />
+                                </div>
+                            );
+                        })}
+                    {/* <ProductCart />
                     <ProductCart />
                     <ProductCart />
-                    <ProductCart />
-                    <ProductCart />
+                    <ProductCart /> */}
                 </div>
                 <div className="text-center mt-5">
                     <Button className="  text-xl  border border-black  px-10">

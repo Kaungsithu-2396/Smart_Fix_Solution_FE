@@ -23,7 +23,7 @@ export default function SpecificProduct() {
     }, []);
     return (
         <>
-            <section className="flex justify-center items-start mt-14 h-screen gap-10">
+            <section className=" flex flex-col 2xl:flex-row 2xl:justify-center items-center w-full justify-start 2xl:items-start mt-14 2xl:h-screen gap-10">
                 <div className="">
                     <img
                         src={item.image}
@@ -32,7 +32,7 @@ export default function SpecificProduct() {
                         srcset=""
                     />
                 </div>
-                <div className="w-[30%] my-6">
+                <div className="2xl:w-[30%] w-[80%] mt-3 mb-6 2xl:my-6">
                     <h1 className="text-4xl">{item.name}</h1>
                     <h2 className="text-2xl text-orange-500">
                         {item.price} USD

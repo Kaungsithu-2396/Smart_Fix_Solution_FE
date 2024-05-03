@@ -11,9 +11,9 @@ import { Button } from "./ui/button";
 import axios from "axios";
 export default function Banner() {
     const searchInput = useRef(null);
-    useEffect(() => {
-        searchInput.current.focus();
-    }, []);
+    // useEffect(() => {
+    //     searchInput.current.focus();
+    // }, []);
     const [searchBar, setSearchBar] = useState(false);
     const [showNav, setShowNav] = useState(false);
     const [showCart, setShowCart] = useState(false);
@@ -46,25 +46,25 @@ export default function Banner() {
     };
     return (
         <>
-            <MobileSearchBar
+            {/* <MobileSearchBar
                 searchBar={searchBar}
                 setSearchBar={setSearchBar}
-            />
+            /> */}
             <div className=" lg:hidden flex justify-around pt-3 mb-2 text-xl items-center">
-                <div className=" w-[50%] m-auto relative flex justify-center items-center border-r-2 border-black">
+                <div className=" w-[50%] m-auto relative flex justify-center items-center  border-black">
                     <BsCart onClick={() => setShowCart(!showCart)} />
                 </div>
 
-                <div
+                {/* <div
                     className=" w-[50%] m-auto flex justify-center items-center"
                     onClick={() => setSearchBar(true)}
                 >
                     <CiSearch />
-                </div>
+                </div> */}
             </div>
             <hr />
             <div className=" lg:py-5 md:py-4 flex   md:justify-center lg:justify-around items-center h-100vh cursor-pointer">
-                <div className="relative justify-center items-center hidden lg:flex">
+                {/* <div className="relative justify-center items-center hidden lg:flex">
                     <span className="text-xl absolute left-2 lg:hidden xl:block">
                         <CiSearch />
                     </span>
@@ -76,7 +76,8 @@ export default function Banner() {
                         placeholder="search"
                         className="border-2 border-black/20 rounded-sm focus:outline-none lg:px-2 xl:px-8  py-2"
                     />
-                </div>
+                </div> */}
+                <div className=""></div>
 
                 <div className="flex  md:block  justify-between mx-5 md:mx-0 w-full md:w-auto items-center">
                     <div

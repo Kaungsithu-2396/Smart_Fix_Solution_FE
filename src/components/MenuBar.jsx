@@ -19,7 +19,6 @@ export default function MenuBar() {
 
     useEffect(() => {
         setVerifyLogin(isLoggedIn);
-        console.log("render", isLoggedIn);
     }, []);
     return (
         <>

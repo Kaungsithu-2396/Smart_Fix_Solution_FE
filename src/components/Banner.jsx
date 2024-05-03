@@ -20,6 +20,7 @@ export default function Banner() {
     const [cartItem, setCartItem] = useState([]);
     let token = localStorage.getItem("token");
     const navigate = useNavigate();
+
     useEffect(() => {
         axios
             .get("http://localhost:3000/api/v1/cart", {
@@ -29,7 +30,7 @@ export default function Banner() {
             })
             .then((response) => setCartItem(response.data.data))
             .catch((error) => console.log(error));
-    }, []);
+    }, [token]);
     const orderHandler = () => {
         axios
             .delete("http://localhost:3000/api/v1/cart", {

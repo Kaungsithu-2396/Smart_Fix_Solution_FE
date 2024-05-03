@@ -6,7 +6,7 @@ import ProductCart from "@/components/ProductCard";
 import { Button } from "@/components/ui/button";
 import PaymentBanner from "@/components/PaymentBanner";
 import BreadCrumbRoute from "@/components/BreadCrumbRoute";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -140,7 +140,7 @@ export default function Home() {
                 </h1>
                 <div className="mt-4 grid grid-cols-2 lg:grid-cols-4 gap-5 ">
                     {product?.products?.length > 0 &&
-                        product.products.slice(0, 3).map((el) => {
+                        product.products.slice(0, 4).map((el) => {
                             return (
                                 <div className="" key={el.id}>
                                     <ProductCart
@@ -158,9 +158,11 @@ export default function Home() {
                     <ProductCart /> */}
                 </div>
                 <div className="text-center mt-5">
-                    <Button className="  text-xl  border border-black  px-10">
-                        View All
-                    </Button>
+                    <Link to={"/shop"}>
+                        <Button className="  text-xl  border border-black  px-10">
+                            View All
+                        </Button>
+                    </Link>
                 </div>
             </div>
             {/* Product Section */}

@@ -45,7 +45,7 @@ export default function UserData() {
 
     return (
         <section className="flex flex-col justify-center items-center w-full mt-5">
-            <h1 className="text-3xl">Product Customization</h1>
+            <h1 className="text-3xl">User Customization</h1>
             <form
                 action=""
                 onSubmit={handleSubmit(onSubmit)}

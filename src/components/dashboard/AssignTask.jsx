@@ -50,9 +50,8 @@ export default function AssignTask() {
     );
 
     const onSubmit = (data) => {
-        console.log(data);
         axios
-            .put(
+            .patch(
                 `http://localhost:3000/api/v1/technicians/${tID}`,
                 {
                     task_id: id.itemID,
@@ -64,6 +63,7 @@ export default function AssignTask() {
                 }
             )
             .then((resp) => {
+                console.log(resp);
                 alert("Assigned successfully");
             })
             .catch((err) => console.log(err));

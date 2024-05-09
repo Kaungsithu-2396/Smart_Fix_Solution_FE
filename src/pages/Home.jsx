@@ -59,7 +59,7 @@ export default function Home() {
                                 </div>
 
                                 <button className="text-white border  border-white m-3 lg:my-10 px-10 rounded-lg py-2 hover:bg-orange-500 duration-150 delay-200 transition-all hover:scale-110 hover:text-black">
-                                    Service
+                                    <Link to={"/service"}>Service</Link>
                                 </button>
                             </div>
                         </div>
@@ -85,7 +85,7 @@ export default function Home() {
                                     </div>
                                 </div>
                                 <button className="text-white border  border-white m-4 lg:my-10 px-10 rounded-lg py-2 hover:bg-orange-500 duration-150 delay-200 transition-all hover:scale-110 hover:text-black">
-                                    Explore
+                                    <Link to={"/shop"}>Explore</Link>
                                 </button>
                             </div>
                         </div>

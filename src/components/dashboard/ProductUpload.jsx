@@ -15,7 +15,9 @@ export default function ProductUpload() {
     const categoryCol = [
         { id: 1, name: "phone" },
         { id: 2, name: "tablet" },
-        { id: 3, name: "airpod" },
+        { id: 3, name: "watch" },
+        { id: 4, name: "laptop" },
+        { id: 5, name: "airpod" },
     ];
     const [trackImage, setTrackImage] = useState("");
     const token = localStorage.getItem("token");

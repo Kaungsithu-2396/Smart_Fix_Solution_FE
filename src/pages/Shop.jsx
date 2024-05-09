@@ -14,7 +14,7 @@ function Shop() {
     }, []);
 
     return (
-        <section className="my-5">
+        <section className="my-5 h-screen">
             <div className="mx-4">
                 <BreadCrumbRoute data={["Home", "Shop"]} />
                 <hr />

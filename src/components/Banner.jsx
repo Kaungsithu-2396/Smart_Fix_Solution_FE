@@ -77,7 +77,15 @@ export default function Banner() {
                         className="border-2 border-black/20 rounded-sm focus:outline-none lg:px-2 xl:px-8  py-2"
                     />
                 </div> */}
-                <div className=""></div>
+                <div className="hidden lg:block">
+                    {localStorage.getItem("user") ? (
+                        <h1 className="border=2 border-black bg-orange-500 text-white px-5 py-2 rounded-lg">
+                            {JSON.parse(localStorage.getItem("user")).name}
+                        </h1>
+                    ) : (
+                        ""
+                    )}
+                </div>
 
                 <div className="flex  md:block  justify-between mx-5 md:mx-0 w-full md:w-auto items-center">
                     <div

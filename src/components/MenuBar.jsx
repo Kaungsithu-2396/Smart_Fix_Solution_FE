@@ -11,12 +11,13 @@ import {
 import { RiAccountPinCircleFill } from "react-icons/ri";
 import { IoMdLogIn } from "react-icons/io";
 import { BsFillBookmarkPlusFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import useAuthStatus from "@/hooks/useAuth";
 export default function MenuBar() {
     const isLoggedIn = useAuthStatus("token");
     const [verifyLogin, setVerifyLogin] = useState(isLoggedIn);
-
+    const navigate = useNavigate();
     useEffect(() => {
         setVerifyLogin(isLoggedIn);
     }, []);
@@ -34,8 +35,10 @@ export default function MenuBar() {
                                     className=" font-bold"
                                     onClick={() => {
                                         localStorage.removeItem("token");
+                                        localStorage.removeItem("user");
                                         setVerifyLogin(false);
                                         window.location.reload();
+                                        navigate("/");
                                     }}
                                 >
                                     <IoMdLogIn /> &nbsp; Log out

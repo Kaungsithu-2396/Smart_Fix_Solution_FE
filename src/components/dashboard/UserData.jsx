@@ -63,7 +63,7 @@ export default function UserData() {
                     />
                 </span>
                 <span className="flex flex-col">
-                    <label htmlFor="">Color</label>
+                    <label htmlFor="">Email</label>
                     <input
                         type="text"
                         className="bg-neutral-300/20 px-3 py-2 border-2 border-black/30 rounded-md my-2"

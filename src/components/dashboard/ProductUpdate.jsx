@@ -18,7 +18,7 @@ export default function ProductUpdate() {
     const navigate = useNavigate();
     const [product, setProduct] = useState("");
     const token = localStorage.getItem("token");
-    const { register, handleSubmit, getValues, setValue, reset } = useForm();
+    const { register, handleSubmit, getValues, reset } = useForm();
     useEffect(() => {
         axios
             .get(`http://localhost:3000/api/v1/products/${productID}`, {
@@ -32,13 +32,7 @@ export default function ProductUpdate() {
             })
             .catch((err) => console.log(err));
     }, []);
-    // reset({
-    //     name: product.name,
-    //     color: product.color,
-    //     price: product.price,
-    //     description: product.description,
-    //     stockItem: product.stockItem,
-    // });
+
     const categoryCol = [
         { id: 1, name: "phone" },
         { id: 2, name: "tablet" },
@@ -47,18 +41,7 @@ export default function ProductUpdate() {
     //setting api values as default value in react hook form
     const data = getValues();
     let { name, color, price, description, stockItem } = data;
-    // console.log(
-    //     "name",
-    //     name,
-    //     "color",
-    //     color,
-    //     "price",
-    //     price,
-    //     "description",
-    //     description,
-    //     "stockItem",
-    //     stockItem
-    // );
+
     const onSubmit = (data) => console.log(data, trackImage);
     const [trackImage, setTrackImage] = useState("");
     const [category, setCategory] = useState("");

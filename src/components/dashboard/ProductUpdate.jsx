@@ -36,7 +36,9 @@ export default function ProductUpdate() {
     const categoryCol = [
         { id: 1, name: "phone" },
         { id: 2, name: "tablet" },
-        { id: 3, name: "airpod" },
+        { id: 3, name: "watch" },
+        { id: 4, name: "laptop" },
+        { id: 5, name: "airpod" },
     ];
     //setting api values as default value in react hook form
     const data = getValues();
@@ -54,17 +56,18 @@ export default function ProductUpdate() {
         });
 
     const updateHandler = async () => {
-        let imgBase64 = "";
+        let imgBase64;
         if (trackImage) {
             try {
                 imgBase64 = await toBase64(trackImage);
             } catch (error) {
-                console.error("Error reading image file:", error);
-                return; // Early return on error
+                // console.error("Error reading image file:", error);
+                // return; // Early return on error
+                imgBase64 = data.image;
             }
         }
-        const image = await toBase64(trackImage);
-        console.log(image);
+        const image = imgBase64;
+
         name = getValues("name");
         color = getValues("color");
         price = getValues("price");
@@ -179,6 +182,12 @@ export default function ProductUpdate() {
                         name=""
                         id=""
                         onChange={(e) => setTrackImage(e.target.files[0] || "")}
+                    />
+                    <img
+                        src={data.image}
+                        className="w-[40%]"
+                        alt=""
+                        srcset=""
                     />
                 </span>
                 <span>

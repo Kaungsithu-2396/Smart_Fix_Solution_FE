@@ -56,9 +56,8 @@ function Service() {
                     },
                 }
             )
-            .then((resp) => console.log(resp.data))
-            .catch((err) => console.log(err));
-        navigate("/success-service-item");
+            .then((resp) => navigate("/success-service-item"))
+            .catch((err) => alert(err.response.data.status));
     };
     return (
         <section className=" min-h-screen  mx-4">
@@ -78,7 +77,7 @@ function Service() {
                         type="text"
                         {...register("name", { required: true })}
                         placeholder="Name"
-                        defaultValue={user.name}
+                        defaultValue={user?.name}
                         className="px-3 rounded-md py-2  border border-black"
                     />
                     {errors.name?.type === "required" && (
@@ -90,7 +89,7 @@ function Service() {
                         type="text"
                         {...register("email", { required: true })}
                         placeholder="Email"
-                        defaultValue={user.email}
+                        defaultValue={user?.email}
                         className="px-3 rounded-md py-2  border border-black"
                     />
                     {errors.email?.type === "required" && (
